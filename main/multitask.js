@@ -1,3 +1,4 @@
+process.env.UV_THREADPOOL_SIZE  = 2
 
 const https = require('https')
 const crypto = require('crypto')
