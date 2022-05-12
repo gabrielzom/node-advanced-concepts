@@ -1,32 +1,26 @@
+process.env.UV_THREADPOOL_SIZE = 1
 const cluster = require('cluster')
-const express = require('express')
-const app = express();
-const port = 8000 || process.env.PORT
-const crypto = require('crypto')
-var token = 'Bearer '
 
 // Is the file being executed in mater mode ?
 if (cluster.isMaster) {
   cluster.fork()
-  // cluster.fork()
-  // cluster.fork()
-  // cluster.fork()
+  cluster.fork()
+  cluster.fork()
+  cluster.fork()
+  cluster.fork()
+  cluster.fork()
 
 } else {
-  function doWork(duration) {
-    const start = Date.now()
-    while( (Date.now() - start) < duration) {
-  
-    }
-  }
+  const express = require('express')
+  const app = express();
+  const port = 8000 || process.env.PORTS
+  const crypto = require('crypto')
+  var token = 'Bearer '
   
   app.get('/', (request, response) => {
-    doWork(5000)
-    const { data } = (crypto.pbkdf2Sync('Sk!0n3.S0lut1on5', (Math.random()).toString(), 1000, 32, 'sha256')).toJSON()
-    data.forEach((item) => { token += item })
-  
-    response.setHeader('Authorization', token)
-    response.status(200).send('This was slow')
+    crypto.pbkdf2('a', 'b', 100000, 512, 'sha512', () => {
+      response.send('Hi there !')
+    })
   })
 
 
